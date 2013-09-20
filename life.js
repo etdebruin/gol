@@ -1,40 +1,38 @@
 $(document).ready(function () {
 
   var life = [];
-  var rotatorTest = makeArray(5,5);
-  kill_array(rotatorTest);
-  rotatorTest[2][1] = 1;
-  rotatorTest[2][2] = 1;
-  rotatorTest[2][3] = 1;
-  printArray(rotatorTest);
+  matrix = [];
 
+  $('#runIt').click(function () {
+    tableOut(matrix);
+    setInterval(function () {
+      matrix = evaluateState(matrix);
+      tableOut(matrix);
+    }, 1000);
+  });
 
-  //life = makeArray(10,10);
-  //life = seed(life);
-  life = rotatorTest;
-  //printArray(life);
-
-
-  //life = evaluateState(life);
-  //printArray(linfe);
-
-
-  $('#setGrid').click(function (e) {
+  $('#setEmptyGrid,#setRandomGrid').click(function (e) {
     var width = $('#width').val();
     var height = $('#height').val();
 
     if ($.isNumeric(width) && $.isNumeric(height)) {
       life = makeArray(width, height);
-      life = seed(life);
-      tableOut(life);
+      matrix = makeArray(width, height);
+      if ($(this).attr('id') == 'setRandomGrid') {
+        matrix = seed(matrix);
+      }
+      //tableOut(life);
+      tableOut(matrix);
     } else {
       alert("Come on, dude. That's not a number.");
     };
+
+    $('td').bind('click', function () {
+      $(this).toggleClass('alive');
+    });
+
   });
 
-  $('td').bind('click', function () {
-    $(this).toggleClass('alive');
-  });
 
   function kill_array(a)
   {
@@ -94,7 +92,7 @@ $(document).ready(function () {
       for (var j = 0; j < y.length; j++){
         var computed_x = targ_x + x[i];
         var computed_y = targ_y + y[j];
-        var is_self = ((x[i] == 0) && (y[j] == 0))
+        var is_self = ((x[i] == 0) && (y[j] == 0));
         if (!is_self) {
           if (computed_x > 0 && computed_y > 0){
             if (computed_y < arr_y_length  && computed_x < arr_x_length){
@@ -135,14 +133,17 @@ $(document).ready(function () {
   function tableOut(grid) {
     var html = '';
     $.each(grid, function (yIndex, yValue) {
-      console.log('yIndex:' + yIndex);
-      console.log('yValue:' + yValue);
       html += '<tr>';
       $.each(grid[yIndex], function (xIndex, xValue) {
-        console.log('xIndex:' + xIndex);
-        console.log('xValue:' + xValue);
         var state = xValue ? 'alive' : '';
         html += '<td class="' + state + '" data-x="' + xIndex + '" data-y="' + yIndex + '"></td>';
+        if (state == 'alive') {
+          matrix[xIndex][yIndex] = 1;
+        }
+        else {
+          matrix[xIndex][yIndex] = 0;
+        }
+        console.log(matrix);
       });
       html += '</tr>';
     });
