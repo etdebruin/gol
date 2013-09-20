@@ -4,12 +4,14 @@ $(document).ready(function () {
 
   life = makeArray(10,10);
   life = seed(life);
-  printArray(life);
+  tableOut(life);
+  //printArray(life);
 
 
   setInterval(function() {
     life = evaluateState(life);
-    printArray(life);
+    //printArray(life);
+    tableOut(life);
   }, 1000);
 
 
@@ -97,6 +99,24 @@ $(document).ready(function () {
 
     $('#output').html(o);
   }
+
+  function tableOut(grid) {
+    var html = '';
+    $.each(grid, function (yIndex, yValue) {
+      console.log('yIndex:' + yIndex);
+      console.log('yValue:' + yValue);
+      html += '<tr>';
+      $.each(grid[yIndex], function (xIndex, xValue) {
+        console.log('xIndex:' + xIndex);
+        console.log('xValue:' + xValue);
+        var state = xValue ? 'alive' : '';
+        html += '<td class="' + state + '" data-x="' + xIndex + '" data-y="' + yIndex + '"></td>';
+      });
+      html += '</tr>';
+    });
+    $('#theGame').html(html);
+  }
+
 
   function makeArray(x, y) {
     var arr = new Array(x), i;
