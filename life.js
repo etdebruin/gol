@@ -2,9 +2,8 @@ $(document).ready(function () {
 
   var life = [];
 
-  life = makeArray(10,10);
+  life = makeArray(100,100);
   life = seed(life);
-
   printArray(life);
 
 
@@ -22,8 +21,8 @@ $(document).ready(function () {
   function printArray(a) {
     var o = "";
 
-    for (i = 0; i < 10; i++) {
-      for (j = 0; j < 10; j++) {
+    for (i = 0; i < a.length; i++) {
+      for (j = 0; j < a[i].length; j++) {
         o = o + " " + a[i][j];
       }
       o = o + "<br />";
@@ -39,7 +38,5 @@ $(document).ready(function () {
     }
     return arr;
   }
-
-
 
 });
