@@ -4,9 +4,13 @@ $(document).ready(function () {
 
   life = makeArray(10,10);
   life = seed(life);
-
-  life = evaluateState(life);
   printArray(life);
+
+
+  setInterval(function() {
+    life = evaluateState(life);
+    printArray(life);
+  }, 1000);
 
 
   function live_die(neighbor_sum,current_state){
@@ -32,13 +36,13 @@ $(document).ready(function () {
   }
 
   function evaluateState(a){
-    var out_state = $.extend({}, a);
-    for (i = 0; i < a.length; i++) {
-      for (j = 0; j < a[i].length; j++) {
+    var out_state = makeArray(a.length,a[0].length)
+    for (var i = 0; i < a.length; i++) {
+      for (var j = 0; j < a[i].length; j++) {
         var focused_cell = a[i][j];
         var neighbors = getNeighbors(a,i,j);
         var sum_of_numbers = 0;
-        for (k=0; k < neighbors.length; k++) {
+        for (var k=0; k < neighbors.length; k++) {
           sum_of_numbers +=  neighbors[k];
         }
         out_state[i][j] = live_die(sum_of_numbers, focused_cell);
@@ -48,19 +52,19 @@ $(document).ready(function () {
   }
 
   function getNeighbors(a,targ_x,targ_y){
-    arr_x_length = a.length;
-    arr_y_length = a[0].length;
+    var arr_x_length = a.length;
+    var arr_y_length = a[0].length;
 
-    x = [-1,0,1];
-    y = [-1,0,1];
-    neighbors = [];
+    var x = [-1,0,1];
+    var y = [-1,0,1];
+    var neighbors = [];
 
-    for(i = 0; i < x.length; i++) {
-      for (j=0; j < y.length; j++){
-        computed_x = targ_x + x[i];
-        computed_y = targ_y + y[1];
+    for(var i = 0; i < x.length; i++) {
+      for (var j = 0; j < y.length; j++){
+        var computed_x = targ_x + x[i];
+        var computed_y = targ_y + y[j];
 
-        if (!(x[i] == 0 && y[i] == 0)) {
+        if (!(x[i] == 0 && y[j] == 0)) {
           if (computed_x > 0 && computed_y > 0){
             if (computed_y < arr_y_length  && computed_x < arr_x_length){
               neighbors.push(a[computed_x][computed_y]);
@@ -87,8 +91,8 @@ $(document).ready(function () {
   function printArray(a) {
     var o = "";
 
-    for (i = 0; i < a.length; i++) {
-      for (j = 0; j < a[i].length; j++) {
+    for (var i = 0; i < a.length; i++) {
+      for (var j = 0; j < a[i].length; j++) {
         o = o + " " + a[i][j];
       }
       o = o + "<br />";
