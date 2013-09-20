@@ -21,23 +21,12 @@
         $('td').click(function () {
           $(this).toggleClass('alive');
         });
-
-        $('#setGrid').click(function (argument) {
-          var width = $('#width').val();
-          var height = $('#height').val();
-          console.log(width);
-          console.log(height);
-
-          if ($.isNumeric(width) && $.isNumeric(height)) {
-
-          } else {
-            alert("Come on, dude. That's not a number.");
-          };
-        });
       });
     </script>
     <style type="text/css">
       #theGame td{
+        text-align: center;
+        vertical-align: middle;
         padding: 10px;
         font-size: 36px;
         background: black;
@@ -62,14 +51,14 @@
     <div>
       <p>
         <label for="width">Width:</label>
-        <input type="text" id="width" />
+        <input type="text" id="width" value="10" />
       </p>
     <p>
       <label for="height">Height:</label>
-      <input type="text" id="height" />
+      <input type="text" id="height" value="10" />
     </p>
     <p><button id="setGrid">Set Grid</button></p>
     </div>
-    <table id="theGame"></table>
+    <div id="theGame"></div>
   </body>
 </html>

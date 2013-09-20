@@ -2,17 +2,24 @@ $(document).ready(function () {
 
   var life = [];
 
-  life = makeArray(10,10);
-  life = seed(life);
-  tableOut(life);
-  //printArray(life);
+  $('#setGrid').click(function (e) {
+    var width = $('#width').val();
+    var height = $('#height').val();
 
+    if ($.isNumeric(width) && $.isNumeric(height)) {
+      life = makeArray(width, height);
+      life = seed(life);
+      tableOut(life);
+    } else {
+      alert("Come on, dude. That's not a number.");
+    };
+  });
 
-  setInterval(function() {
-    life = evaluateState(life);
-    //printArray(life);
-    tableOut(life);
-  }, 1000);
+  // setInterval(function() {
+  //   life = evaluateState(life);
+  //   //printArray(life);
+  //   tableOut(life);
+  // }, 1000);
 
 
   function live_die(neighbor_sum,current_state){
@@ -114,13 +121,15 @@ $(document).ready(function () {
       });
       html += '</tr>';
     });
-    $('#theGame').html(html);
+    $('#theGame').html('<table>' + html + '</table>');
   }
 
 
   function makeArray(x, y) {
-    var arr = new Array(x), i;
-    for (i=0; i<y; i++) {
+    y = parseInt(y);
+    x = parseInt(x);
+    var arr = [];
+    for (var i = 0; i < y; i++) {
       arr[i] = new Array(x);
     }
     return arr;
