@@ -2,9 +2,12 @@ $(document).ready(function () {
 
   var life = [];
 
-  life = makeArray(100,100);
+  life = makeArray(10,10);
   life = seed(life);
+
+  life = evaluateState(life);
   printArray(life);
+
 
   function live_die(neighbor_sum,current_state){
     var out_state = current_state;
@@ -31,11 +34,11 @@ $(document).ready(function () {
   function evaluateState(a){
     var out_state = $.extend({}, a);
     for (i = 0; i < a.length; i++) {
-      for (j = 0; j < a[i].length; j++) { 
+      for (j = 0; j < a[i].length; j++) {
         var focused_cell = a[i][j];
         var neighbors = getNeighbors(a,i,j);
         var sum_of_numbers = 0;
-        for k=0; k < neighbors.length; k++{
+        for (k=0; k < neighbors.length; k++) {
           sum_of_numbers +=  neighbors[k];
         }
         out_state[i][j] = live_die(sum_of_numbers, focused_cell);
@@ -44,7 +47,7 @@ $(document).ready(function () {
     return out_state;
   }
 
-  function getNeightbors(a,targ_x,targ_y){
+  function getNeighbors(a,targ_x,targ_y){
     arr_x_length = a.length;
     arr_y_length = a[0].length;
 
@@ -53,17 +56,23 @@ $(document).ready(function () {
     neighbors = [];
 
     for(i = 0; i < x.length; i++) {
-        for (j=0; j < y.length; j++){
-          computed_x = targ_x + x[i];
-          computed_y = targ_y + y[1];
+      for (j=0; j < y.length; j++){
+        computed_x = targ_x + x[i];
+        computed_y = targ_y + y[1];
+
+        if (!(x[i] == 0 && y[i] == 0)) {
           if (computed_x > 0 && computed_y > 0){
-          if (computed_y < arr_y_length  && computed_x < arr_x_length){
-            neighbors.push(arr[computed_x][computed_y]);
-          }}
+            if (computed_y < arr_y_length  && computed_x < arr_x_length){
+              neighbors.push(a[computed_x][computed_y]);
+            }
+          }
         }
+      }
     }
+
     return neighbors;
   }
+
   function seed(a) {
 
     for (i = 0; i < a.length; i++) {
