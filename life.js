@@ -16,19 +16,16 @@ $(document).ready(function () {
   function live_die(neighbor_sum,current_state){
     var out_state = current_state;
     if(current_state == 1){
-      if (neighbor_sum < 2)
-      {
+      if (neighbor_sum < 2) {
         out_state = 0;
       }
-      else if (neighbor_sum > 3)
-      {
+      else if (neighbor_sum > 3) {
         out_state = 0;
       }
     }
     else
     {
-      if (neighbor_sum < 2)
-      {
+      if (neighbor_sum < 2) {
         out_state = 0;
       }
     }
@@ -64,7 +61,7 @@ $(document).ready(function () {
         var computed_x = targ_x + x[i];
         var computed_y = targ_y + y[j];
 
-        if (!(x[i] == 0 && y[j] == 0)) {
+        if ((x[i] != 0) && (y[j] != 0)) {
           if (computed_x > 0 && computed_y > 0){
             if (computed_y < arr_y_length  && computed_x < arr_x_length){
               neighbors.push(a[computed_x][computed_y]);
