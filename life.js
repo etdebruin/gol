@@ -1,10 +1,25 @@
 $(document).ready(function () {
 
   var life = [];
+  var rotatorTest = makeArray(5,5);
+  kill_array(rotatorTest);
+  rotatorTest[2][1] = 1;
+  rotatorTest[2][2] = 1;
+  rotatorTest[2][3] = 1;
+  printArray(rotatorTest);
 
-  life = makeArray(10,10);
-  life = seed(life);
-  printArray(life);
+
+  //life = makeArray(10,10);
+  //life = seed(life);
+  life = rotatorTest;
+  //printArray(life);
+
+
+  //life = evaluateState(life);
+  //printArray(linfe);
+
+
+
 
 
   setInterval(function() {
@@ -12,6 +27,16 @@ $(document).ready(function () {
     printArray(life);
   }, 1000);
 
+  function kill_array(a)
+  {
+
+    for (var i = 0; i < a.length; i++) {
+      for (var j = 0; j < a[i].length; j++) {
+        a[i][j] = 0;
+      }
+    }
+
+  }
 
   function live_die(neighbor_sum,current_state){
     var out_state = current_state;
@@ -25,8 +50,8 @@ $(document).ready(function () {
     }
     else
     {
-      if (neighbor_sum < 2) {
-        out_state = 0;
+      if (neighbor_sum == 3) {
+        out_state = 1;
       }
     }
     return out_state;
@@ -60,8 +85,8 @@ $(document).ready(function () {
       for (var j = 0; j < y.length; j++){
         var computed_x = targ_x + x[i];
         var computed_y = targ_y + y[j];
-
-        if ((x[i] != 0) && (y[j] != 0)) {
+        var is_self = ((x[i] == 0) && (y[j] == 0))
+        if (!is_self) {
           if (computed_x > 0 && computed_y > 0){
             if (computed_y < arr_y_length  && computed_x < arr_x_length){
               neighbors.push(a[computed_x][computed_y]);
