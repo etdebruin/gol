@@ -1,16 +1,82 @@
 <html>
+  <head>
+    <title>The Game of Life</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="life.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var grid = [
+          [0, 0, 0, 0, 0, 0, 0, 1, 1],
+          [1, 0, 0, 1, 0, 1, 0, 1, 1],
+          [1, 0, 0, 1, 0, 1, 0, 1, 1],
+          [1, 0, 0, 1, 0, 1, 0, 1, 1],
+          [1, 0, 0, 1, 0, 1, 0, 1, 1],
+          [1, 0, 0, 1, 0, 1, 0, 1, 1],
+          [1, 0, 0, 1, 0, 1, 0, 1, 1],
+          [1, 0, 0, 1, 0, 1, 0, 1, 1],
+          [1, 1, 1, 1, 1, 1, 1, 1, 1]
+        ];
 
-<head>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script type="text/javascript" src="life.js"></script>
-</head>
+        var html = '';
+        $.each(grid, function (yIndex, yValue) {
+          console.log('yIndex:' + yIndex);
+          console.log('yValue:' + yValue);
+          html += '<tr>';
+          $.each(grid[yIndex], function (xIndex, xValue) {
+            console.log('xIndex:' + xIndex);
+            console.log('xValue:' + xValue);
+            var state = xValue ? 'alive' : '';
+            html += '<td class="' + state + '" data-x="' + xIndex + '" data-y="' + yIndex + '"></td>';
+          });
+          html += '</tr>';
+        });
+        $('#theGame').html(html);
 
-<body>
+        $('td').click(function () {
+          $(this).toggleClass('alive');
+        });
 
-<div id="output">
-</div>
+        $('#setGrid').click(function (argument) {
+          var width = $('#width').val();
+          var height = $('#height').val();
+          console.log(width);
+          console.log(height);
 
+          if ($.isNumeric(width) && $.isNumeric(height)) {
 
-</body>
+          } else {
+            alert("Come on, dude. That's not a number.");
+          };
+        });
+      });
+    </script>
+    <style type="text/css">
+      #theGame td{
+        padding: 10px;
+        font-size: 36px;
+      }
 
+      #theGame td:before{
+        content: '☠';
+      }
+
+      #theGame td.alive:before{
+        content: '☺';
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p>
+        <label for="width">Width:</label>
+        <input type="text" id="width" />
+      </p>
+    <p>
+      <label for="height">Height:</label>
+      <input type="text" id="height" />
+    </p>
+    <p><button id="setGrid">Set Grid</button></p>
+    </div>
+    <table id="theGame"></table>
+  </body>
 </html>
