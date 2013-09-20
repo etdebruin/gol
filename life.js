@@ -19,13 +19,18 @@ $(document).ready(function () {
   //printArray(linfe);
 
 
+  $('#setGrid').click(function (e) {
+    var width = $('#width').val();
+    var height = $('#height').val();
 
-
-
-  setInterval(function() {
-    life = evaluateState(life);
-    printArray(life);
-  }, 1000);
+    if ($.isNumeric(width) && $.isNumeric(height)) {
+      life = makeArray(width, height);
+      life = seed(life);
+      tableOut(life);
+    } else {
+      alert("Come on, dude. That's not a number.");
+    };
+  });
 
   function kill_array(a)
   {
@@ -123,9 +128,29 @@ $(document).ready(function () {
     $('#output').html(o);
   }
 
+  function tableOut(grid) {
+    var html = '';
+    $.each(grid, function (yIndex, yValue) {
+      console.log('yIndex:' + yIndex);
+      console.log('yValue:' + yValue);
+      html += '<tr>';
+      $.each(grid[yIndex], function (xIndex, xValue) {
+        console.log('xIndex:' + xIndex);
+        console.log('xValue:' + xValue);
+        var state = xValue ? 'alive' : '';
+        html += '<td class="' + state + '" data-x="' + xIndex + '" data-y="' + yIndex + '"></td>';
+      });
+      html += '</tr>';
+    });
+    $('#theGame').html('<table>' + html + '</table>');
+  }
+
+
   function makeArray(x, y) {
-    var arr = new Array(x), i;
-    for (i=0; i<y; i++) {
+    y = parseInt(y);
+    x = parseInt(x);
+    var arr = [];
+    for (var i = 0; i < y; i++) {
       arr[i] = new Array(x);
     }
     return arr;
