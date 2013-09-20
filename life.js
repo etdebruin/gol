@@ -32,6 +32,10 @@ $(document).ready(function () {
     };
   });
 
+  $('td').bind('click', function () {
+    $(this).toggleClass('alive');
+  });
+
   function kill_array(a)
   {
 

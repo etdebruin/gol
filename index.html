@@ -17,10 +17,6 @@
         //   [1, 0, 0, 1, 0, 1, 0, 1, 1],
         //   [1, 1, 1, 1, 1, 1, 1, 1, 1]
         // ];
-
-        $('td').click(function () {
-          $(this).toggleClass('alive');
-        });
       });
     </script>
     <style type="text/css">
@@ -57,8 +53,10 @@
       <label for="height">Height:</label>
       <input type="text" id="height" value="10" />
     </p>
-    <p><button id="setGrid">Set Grid</button></p>
+    <p><button id="setGrid">Set Empty Grid</button></p>
+    <p><button id="setRandomGrid">Set Random Grid</button></p>
     </div>
+    <p><button id="runIt">Run It!</button></p>
     <div id="theGame"></div>
   </body>
 </html>
